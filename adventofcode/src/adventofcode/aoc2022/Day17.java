@@ -100,7 +100,7 @@ public class Day17 {
 		}
 
 		/*
-		 * idea from Rangsk: run the simulation, log the hieght increases. Then consider
+		 * idea from Rangsk: run the simulation, log the height increases. Then consider
 		 * an offset of iterations that are probably not part of the repetition pattern
 		 */
 
