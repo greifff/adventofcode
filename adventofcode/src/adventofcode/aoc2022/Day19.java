@@ -156,10 +156,6 @@ public class Day19 {
 				return s;
 			}
 
-//			int buildVariations = 0; // we always want more geode crackers
-
-//			if (robots[2] > 0) {
-//			buildVariations++;
 			if (robots[2] > 0 && (nextToBuild == -1 || nextToBuild == 3)) {
 				Solution s1 = new Solution(this);
 				s.add(s1);
@@ -178,7 +174,6 @@ public class Day19 {
 				Solution s1 = new Solution(this);
 				s.add(s1);
 				if (robots[2] < blueprint.stats[6]) {// obsidian
-//					buildVariations++;
 					if (blueprint.stats[3] <= ores[0] && blueprint.stats[4] <= ores[1]) {
 						s1.ores[0] = s1.ores[0] - blueprint.stats[3];
 						s1.ores[1] = s1.ores[1] - blueprint.stats[4];
@@ -193,7 +188,6 @@ public class Day19 {
 				Solution s1 = new Solution(this);
 				s.add(s1);
 				if (robots[1] < blueprint.stats[4]) { // clay
-//					buildVariations++;
 					if (blueprint.stats[2] <= ores[0]) {
 						s1.ores[0] = s1.ores[0] - blueprint.stats[2];
 						s1.robots[1] = s1.robots[1] + 1;
@@ -210,7 +204,6 @@ public class Day19 {
 			int usableOreBots = Math.max(Math.max(blueprint.stats[1], blueprint.stats[2]),
 					Math.max(blueprint.stats[3], blueprint.stats[5]));
 			if (nextToBuild < 1 && robots[0] < usableOreBots) {
-//				buildVariations++;
 				Solution s1 = new Solution(this);
 				s.add(s1);
 				if (blueprint.stats[1] <= ores[0]) {
@@ -221,10 +214,6 @@ public class Day19 {
 					s1.nextToBuild = 0;
 				}
 			}
-//			if (buildVariations > s.size()) {
-//				s.add(new Solution(this)); // dont build
-//			}
-
 			return s;
 		}
 
