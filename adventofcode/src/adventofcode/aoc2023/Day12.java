@@ -31,7 +31,7 @@ public class Day12 {
 
 			sum += h.combinationsRecursive(0, 0, 0);
 
-			h.times();
+			h.times5();
 
 			sum2 += h.combinationsRecursive(0, 0, 0);
 		}
@@ -53,7 +53,7 @@ public class Day12 {
 			groupsDamaged = Arrays.stream(p[1].split(",")).map(t -> Integer.parseInt(t)).toList();
 		}
 
-		void times() {
+		void times5() {
 			map = (map + '?').repeat(4) + map;
 			List<Integer> groups5 = new ArrayList<>();
 			for (int i = 0; i < 5; i++) {
@@ -112,7 +112,7 @@ public class Day12 {
 			for (int i = 0; i < 1 << x; i++) {
 				String map1 = map;
 				for (int k = 0; k < x; k++) {
-					map1 = map1.replaceFirst("\\?", (i >> k & 1) == 1 ? "#" : "_");
+					map1 = map1.replaceFirst("\\?", (i >> k & 1) == 1 ? "#" : ".");
 				}
 				if (p.matcher(map1).matches())
 					count++;
