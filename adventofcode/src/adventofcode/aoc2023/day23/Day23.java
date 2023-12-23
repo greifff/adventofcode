@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 import adventofcode.util.Ansi;
@@ -143,19 +144,8 @@ public class Day23 {
 		System.out.println("§1 ");
 		SlopeNode end = nodes.stream().reduce((n1, n2) -> n1.y > n2.y ? n1 : n2).orElse(null);
 
-//		for (SlopeNode n : nodes) {
-//			for (DijkstraEdge e : n.edges) {
-//				SlopeNode t = (SlopeNode) e.to();
-//				System.out.println(": (" + n.x + "," + n.y + ")->(" + t.x + "," + t.y + ") " + e.weight());
-//			}
-//		}
-
-//				Dijkstra d = new Dijkstra(nodes, start);
-//				d.visitAll();
-
-//				System.out.println("# " + end.weight());
-
-		List<PathWalker> walkers = new LinkedList<>();
+		Stack<SlopeNode> visited = new Stack<>();
+		Stack<PathWalker> walkers = new Stack<>();
 		walkers.add(new PathWalker(start));
 
 		SlopeNode preEnd = end.edges.get(0).to();
@@ -163,16 +153,26 @@ public class Day23 {
 
 		int mostExpensive = 0;
 		while (!walkers.isEmpty()) {
-			PathWalker w = walkers.remove(0);
+			PathWalker w = walkers.pop();
 			if (w.current == preEnd) {
 				if (w.cost > mostExpensive) {
 					System.out.println("c " + w.cost);
 					mostExpensive = w.cost;
 				}
-//				mostExpensive = Math.max(mostExpensive, w.cost);
 				continue;
 			}
-			walkers.addAll(w.walk());
+
+			while (!visited.isEmpty() && w.previous.current != visited.peek()) {
+				visited.pop();
+			}
+
+			visited.push(w.current);
+
+			for (SlopeEdge e : w.current.edges) {
+				if (!visited.contains(e.to)) {
+					walkers.push(new PathWalker(w, e));
+				}
+			}
 		}
 
 		Ansi.foreground(0, 255, 255);
